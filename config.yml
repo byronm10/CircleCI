@@ -1,0 +1,32 @@
+# This is my  first CircleCI configuration file
+#jobs is being built within a Docker container, which is set up in the configuration using nested key-pairs
+version: 2.1
+
+jobs:
+build_hello: byrontest says hello!                                              # name of  job
+    docker:                                                        # executor type
+    - image: cimg/base:stable                                     # primary container will run the latest, production-ready base image, docker is calling a pre-built CircleCI Docker  convenience image that spins up an Ubuntu environment. 
+        auth:
+          username: byronm10
+          password: yonaciel100798  # context / project UI env-var reference
+
+      steps:
+      - run: echo "Say hello to my first CircleCI config file, in YAML!"
+
+ # Job two with a unique name
+  say_goodbye:
+    docker:
+     - image: cimg/base:2022.05
+        auth:
+          username: byronm10
+          password: yonaciel100798  
+    steps:
+      - run: echo "Say goodbye to my first CircleCI config file, in YAML, Lol!"
+
+workflows:
+  # Name of workflow
+  hello_and_goodbye:
+    # List of jobs that will run
+    jobs:
+      - build_hello
+      - say_goodbye
